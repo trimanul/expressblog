@@ -1,0 +1,17 @@
+<%- include('page_body_top')  %> 
+        <div class="main">
+            <% for (post of posts)  {%> 
+                <div class="post-body">
+                    <h3> <%= post.title %> </h3>
+                    <p><%= post.text %></p>
+                    <div class="lower-text">
+                        <a href="#" class="user-link"><%= post.author %></a>
+                        <small><%= post.date %></small>
+                    </div>
+                </div>
+            <% } %>   
+
+        </div>
+
+
+<%- include('page_body_bottom')  %> 

@@ -1,0 +1,160 @@
+/* Main structural components CSS */
+body {
+    margin: 0;
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #eee;
+}
+
+.header img {
+    margin-left: 50px;
+    margin-right: 20px;
+}
+
+.footer {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    
+    background-color: #eee;
+}
+
+.main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding-left: 20px;
+    padding-bottom: 30px;
+}
+
+
+/* Navbar CSS */
+.navigation-link {
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.navigation-link:hover {
+    color: gray;
+}
+
+.login-group {
+    margin-left: auto;
+    margin-right: 20px;
+
+}
+
+
+/* Post related CSS */
+.post-body {
+    border: 1px solid gray;
+    border-radius: 3px;
+    width: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px 700px 10px 15px ;
+    padding-left: 20px;
+}
+.post-body h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.post-body .lower-text {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    height: fit-content;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 10px;
+    color: gray;
+    border-top: 1px solid lightgray;
+}
+
+.lower-text p {
+    margin: 5px 0 5px 0;
+}
+
+.lower-text small {
+    margin-left: auto;
+}
+
+.user-link {
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+    text-decoration: none;
+}
+
+.user-link:hover {
+    color: lightblue;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+.form-container label {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-container input {
+    font-family: Arial, Helvetica, sans-serif;
+
+    width: 300px;
+    height: 20px;
+    border: 2px solid gray;
+    border-radius: 5px;
+
+    padding-left: 7px;
+    margin-top: 5px;
+}
+
+.form-container input[type=submit] {
+    width: 100px;
+
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 0;
+    height: 25px;
+
+}
+
+.form-container input[type=submit]:hover {
+    background-color: #eee;
+
+}
