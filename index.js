@@ -85,7 +85,6 @@ app.post('/login', body('username').isAlphanumeric().escape(), body('password').
             return res.status(400).json({ errors: 'User not found' });
         }
         if (query.username == req.body.username) {
-            console.log(query.password);
             bcrypt.compare(req.body.password, query.password)
             .then( (same) => {
                 if (same) {
@@ -170,7 +169,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/myposts', (req, res) => {
-    db.any(`SELECT title AS title, content AS post_content, date_posted AS date_posted, username AS author FROM posts JOIN users on owner_id=user_id WHERE username=\'${req.session.activeUser}\';`)
+    db.any(`SELECT post_id AS post_id, title AS title, content AS post_content, date_posted AS date_posted, username AS author FROM posts JOIN users on owner_id=user_id WHERE username=\'${req.session.activeUser}\';`)
     .then((query) =>{
         let posts = query;
         res.render('index', { posts: posts, is_logged: true, cur_user: req.session.activeUser})
