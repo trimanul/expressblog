@@ -1,83 +1,12 @@
 const express = require('express');
 const session = require('express-session');
-
-
 const { render, redirect, cookie } = require('express/lib/response');
 const {body, validationResult} = require('express-validator');
 const pgp = require('pg-promise')();
-const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 const app = express();
-
-const dummy_data = [
-{
-    id : 1,
-    author : 'dummy',
-    title : 'First post',
-    text : 'First blog post!!',
-    date : '22.03.2022'
-},
-
-{
-    id : 2,
-    author : 'dummy',
-    title : 'Second post',
-    text : 'Second blog post!!',
-    date : '22.03.2022'
-},
-
-{
-    id : 3,
-    author : 'dummy',
-    title : 'Third post',
-    text : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum explicabo optio consequuntur fuga voluptate consequatur quam incidunt a, numquam est.',
-    date : '22.03.2022'
-},
-
-{
-    id : 4,
-    author : 'dummy',
-    title : '4 post',
-    text : 'Second blog post!!',
-    date : '22.03.2022'
-},
-
-{
-    id : 5,
-    author : 'dummy',
-    title : '5 post',
-    text : 'Second blog post!!',
-    date : '22.03.2022'
-},
-
-{
-    id : 5,
-    author : 'dummy',
-    title : '5 post',
-    text : 'Second blog post!!',
-    date : '22.03.2022'
-},
-{
-    id : 5,
-    author : 'dummy',
-    title : '5 post',
-    text : 'Second blog post!!',
-    date : '22.03.2022'
-},
-{
-    id : 5,
-    author : 'dummy',
-    title : '5 post',
-    text : 'Second blog post!!',
-    date : '22.03.2022'
-}
-
-]
-
-//TODO: implement sessions
-let is_logged = false;
-let cur_user = '';
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -155,11 +84,20 @@ app.post('/login', body('username').isAlphanumeric().escape(), body('password').
         if(!query) {
             return res.status(400).json({ errors: 'User not found' });
         }
-        if (query.username == req.body.username && query.password == req.body.password) {
-            req.session.activeUser = req.body.username;
-        }
+        if (query.username == req.body.username) {
+            console.log(query.password);
+            bcrypt.compare(req.body.password, query.password)
+            .then( (same) => {
+                if (same) {
+                    req.session.activeUser = req.body.username;
+                    res.redirect('/');
+                }
 
-        res.redirect('/');
+                else {
+                    return res.status(400).json({ errors: 'Invalid password' });
+                }
+            });
+        }
     });
 
 });
@@ -194,10 +132,13 @@ app.post('/signin',
         }
 
         else {
-            db.none(`INSERT INTO users(username, email, password) VALUES(\'${req.body.username}\', \'${req.body.email}\', \'${req.body.password}\')`)
-            .then(  (query) => {
-                res.redirect('/');
+            bcrypt.hash(req.body.password, 10, (err, hash) =>{
+                db.none(`INSERT INTO users(username, email, password) VALUES(\'${req.body.username}\', \'${req.body.email}\', \'${hash}\')`)
+                .then(  (query) => {
+                    res.redirect('/');
+                });
             });
+            
         }
     });
 
