@@ -13,9 +13,19 @@
             <a href="/"><img src="/static/icon.png" width="32px" height="32px"></a>
             <a href="/" class="navigation-link">Home</a>
             <a href="/about" class="navigation-link">About</a>
-            <div class="login-group">
-                <a href="/login" class="navigation-link">Log In</a>
-                <a href="/signin" class="navigation-link">Sign In</a>
-            </div>
+            <% if (is_logged) { %>
+            <a href="/myposts" class="navigation-link">My Posts</a>    
+                <div class="login-group">
+                    <a href="/new_post" class="navigation-link">New Post</a>
+                    <a href="#" class="navigation-link"> <%= cur_user %> </a>
+                    <a href="/logout" class="navigation-link">Log Out</a>
+                </div>
+            <% } %>
+            <% if (!is_logged) { %> 
+                <div class="login-group">
+                    <a href="/login" class="navigation-link">Log In</a>
+                    <a href="/signin" class="navigation-link">Sign In</a>
+                </div>
+            <% } %> 
             
         </div>

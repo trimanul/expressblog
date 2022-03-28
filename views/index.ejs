@@ -3,10 +3,10 @@
             <% for (post of posts)  {%> 
                 <div class="post-body">
                     <h3> <%= post.title %> </h3>
-                    <p><%= post.text %></p>
+                    <p><%= post.post_content %></p>
                     <div class="lower-text">
                         <a href="#" class="user-link"><%= post.author %></a>
-                        <small><%= post.date %></small>
+                        <small><%= post.date_posted %></small>
                     </div>
                 </div>
             <% } %>   

@@ -1,5 +1,21 @@
 <%- include('page_body_top')  %> 
 
+<form class="form-container" action="" method="post">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
 
+    <label for="username" >Username:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="rep_password">Repeat Password:</label>
+    <input type="password" id="rep_password" name="rep_password" required><br>
+
+    <input type="submit" value="Sign In">
+    
+
+</form>
 
 <%- include('page_body_bottom')  %> 
