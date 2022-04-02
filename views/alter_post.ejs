@@ -1,0 +1,15 @@
+<%- include('page_body_top')  %> 
+
+<form class="form-container" action="" method="post" id="post_form">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required value="<%= title %>"><br>
+
+    <label for="content" >Text:</label>
+    <textarea id="content" name="content" form="post_form" rows="6" cols="50" required val><%= content %></textarea><br>
+
+    <input type="submit" value="Update Post">
+    
+
+</form>
+
+<%- include('page_body_bottom')  %> 

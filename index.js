@@ -38,7 +38,7 @@ app.use(session({
 
 
 app.get('/', (req, res) => {
-    db.any('SELECT title AS title, content AS post_content, date_posted AS date_posted, username AS author FROM posts JOIN users on owner_id=user_id;')
+    db.any('SELECT title AS title, content AS post_content, to_char(date_posted, \'DD.MM.YYYY\') AS date_posted, username AS author FROM posts JOIN users on owner_id=user_id;')
     .then((query) =>{
         let posts = query;
         if (req.session.activeUser){
@@ -169,13 +169,38 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/myposts', (req, res) => {
-    db.any(`SELECT post_id AS post_id, title AS title, content AS post_content, date_posted AS date_posted, username AS author FROM posts JOIN users on owner_id=user_id WHERE username=\'${req.session.activeUser}\';`)
+    db.any(`SELECT post_id AS post_id, title AS title, content AS post_content, to_char(date_posted, \'DD.MM.YYYY\') AS date_posted, username AS author FROM posts JOIN users on owner_id=user_id WHERE username=\'${req.session.activeUser}\';`)
     .then((query) =>{
         let posts = query;
-        res.render('index', { posts: posts, is_logged: true, cur_user: req.session.activeUser})
+        res.render('myposts', { posts: posts, is_logged: true, cur_user: req.session.activeUser});
     }
     );
 });
+
+app.get('/delete_post', (req, res) => {
+    db.none(`DELETE FROM posts WHERE post_id=\'${req.query.post_id}\'`)
+    .then(() => {
+        res.redirect('/myposts');
+    });
+});
+
+app.get('/alter_post', (req, res) => {
+    db.one(`SELECT title AS title, content AS content FROM posts WHERE post_id=\'${req.query.post_id}\'`)
+    .then((query) => {
+        res.render('alter_post', {title: query.title, content: query.content, is_logged: true, cur_user: req.session.activeUser});
+    });
+});
+
+app.post('/alter_post',
+    body('title').escape(),
+    body('content').escape(),
+    (req, res) => {
+    db.none(`UPDATE posts SET title=\'${req.body.title}\', content=\'${req.body.content}\' WHERE post_id=\'${req.query.post_id}\'`)
+    .then((query) => {
+        res.redirect('/myposts');
+    });
+});
+
 
 
 app.listen(3000, () => {

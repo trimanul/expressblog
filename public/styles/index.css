@@ -100,6 +100,57 @@ body {
     border-top: 1px solid lightgray;
 }
 
+.post-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: baseline;
+}
+
+.delete-btn {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 0;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+
+.delete-btn:hover {
+    
+    background-color: rgb(255, 82, 82);
+    border: 1px solid rgb(255, 82, 82);
+
+}
+
+.alter-btn {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: auto;
+    background-color: rgb(0, 172, 238);
+    border: 1px solid rgb(0, 172, 238);
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.alter-btn:hover {
+    background-color: rgb(78, 194, 240);
+    border: 1px solid rgb(78, 194, 240);
+}
+
 .lower-text p {
     margin: 5px 0 5px 0;
 }
